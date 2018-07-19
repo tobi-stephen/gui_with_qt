@@ -2,6 +2,7 @@
     "files.associations": {
         "qtgui": "cpp",
         "qmainwindow": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "qmessagebox": "cpp"
     }
 }

@@ -31,7 +31,7 @@ MainWindow::MainWindow()
 	// findDialog = 0;
 
 	// setWindowIcon(QIcon(":/images/icon.png"));
-	// setCurrentFile("");
+	setCurrentFile("");
 	setAttribute(Qt::WA_DeleteOnClose);
 }
 
@@ -41,24 +41,24 @@ void MainWindow::createActions()
 	// newAction->setIcon(QIcon(":/images/new.png"));
 	newAction->setShortcut(tr("Ctrl+N"));
 	newAction->setStatusTip(tr("Create a new spreadsheet file"));
-	// connect(newAction, SIGNAL(triggered()), this, SLOT(newFile()));
+	connect(newAction, SIGNAL(triggered()), this, SLOT(newFile()));
 
 	openAction = new QAction(tr("&Open"), this);
 	// openAction->setIcon(QIcon(":/images/open.png"));
 	openAction->setShortcut(tr("Ctrl+O"));
 	openAction->setStatusTip(tr("Open a spreadsheet file"));
-	// connect(openAction, SIGNAL(triggered()), this, SLOT(open()));
+	connect(openAction, SIGNAL(triggered()), this, SLOT(open()));
 
 	saveAction = new QAction(tr("&Save"), this);
 	// saveAction->setIcon(QIcon(":/images/save.png"));
 	saveAction->setShortcut(tr("Ctrl+S"));
 	saveAction->setStatusTip(tr("Save a spreadsheet file"));
-	// connect(saveAction, SIGNAL(triggered()), this, SLOT(save()));
+	connect(saveAction, SIGNAL(triggered()), this, SLOT(save()));
 
 	saveAsAction = new QAction(tr("Save As"), this);
 	// saveAsAction->setIcon(QIcon(":/images/save.png"));
 	saveAsAction->setStatusTip(tr("Save as"));
-	// connect(saveAsAction, SIGNAL(triggered()), this, SLOT(saveAs()));
+	connect(saveAsAction, SIGNAL(triggered()), this, SLOT(saveAs()));
 
 	for (int i = 0; i < MaxRecentFiles; ++i){
 		recentFileActions[i] = new QAction(this);
@@ -69,60 +69,60 @@ void MainWindow::createActions()
 	cutAction = new QAction(tr("Cu&t"), this);
 	cutAction->setShortcut(tr("Ctrl+X"));
 	cutAction->setStatusTip(tr("Cut this cell portion"));
-	// connect(cutAction, SIGNAL(triggered()), spreadsheet, SLOT(cut()));
+	connect(cutAction, SIGNAL(triggered()), spreadsheet, SLOT(cut()));
 
 	copyAction = new QAction(tr("&Copy"), this);
 	copyAction->setShortcut(tr("Ctrl+C"));
 	copyAction->setStatusTip(tr("Copy this cell portion"));
-	// connect(copyAction, SIGNAL(triggered()), spreadsheet, SLOT(copy()));
+	connect(copyAction, SIGNAL(triggered()), spreadsheet, SLOT(copy()));
 
 	pasteAction = new QAction(tr("&Paste"), this);
 	pasteAction->setShortcut(tr("Ctrl+V"));
-	pasteAction->setStatusTip(tr("Copy this cell(s)"));
-	// connect(pasteAction, SIGNAL(triggered()), spreadsheet, SLOT(paste()));
+	pasteAction->setStatusTip(tr("Paste into this cell(s)"));
+	connect(pasteAction, SIGNAL(triggered()), spreadsheet, SLOT(paste()));
 	
 	deleteAction = new QAction(tr("&Delete"), this);
 	deleteAction->setShortcut(tr("Del"));
 	deleteAction->setStatusTip(tr("Delete this cell"));
-	// connect(pasteAction, SIGNAL(triggered()), spreadsheet, SLOT(del()));
+	connect(pasteAction, SIGNAL(triggered()), spreadsheet, SLOT(del()));
 
-	// selectRowAction = new QAction(tr("&Row"), this);
-	// selectRowAction->setStatusTip(tr("Select the rows"));
+	selectRowAction = new QAction(tr("&Row"), this);
+	selectRowAction->setStatusTip(tr("Select the rows"));
 	// connect(selectRowAction, SIGNAL(triggered()), spreadsheet, SLOT(selectRow()));
 
-	// selectColumnAction = new QAction(tr("&Column"), this);
-	// selectColumnAction->setStatusTip(tr("Select the column"));
+	selectColumnAction = new QAction(tr("&Column"), this);
+	selectColumnAction->setStatusTip(tr("Select the column"));
 	// connect(selectColumnAction, SIGNAL(triggered()), spreadsheet, SLOT(selectColumn()));
 
-	// selectAllAction = new QAction(tr("&All"), this);
-	// selectAllAction->setShortcut(tr("Ctrl+A"));
-	// selectAllAction->setStatusTip(tr("Select all cells"));
-	// connect(selectAllAction, SIGNAL(triggered()), spreadsheet, SLOT(selectAll()));
+	selectAllAction = new QAction(tr("&All"), this);
+	selectAllAction->setShortcut(tr("Ctrl+A"));
+	selectAllAction->setStatusTip(tr("Select all cells"));
+	connect(selectAllAction, SIGNAL(triggered()), spreadsheet, SLOT(selectAll()));
 
-	// findAction = new QAction(tr("&Find..."), this);
-	// findAction->setShortcut(tr("Ctrl+F"));
-	// findAction->setStatusTip(tr("Find "));
+	findAction = new QAction(tr("&Find..."), this);
+	findAction->setShortcut(tr("Ctrl+F"));
+	findAction->setStatusTip(tr("Find "));
 	// connect(findAction, SIGNAL(triggered()), spreadsheet, SLOT(find()));
 
-	// goToCellAction = new QAction(tr("&Go to Cell..."), this);
-	// goToCellAction->setShortcut(tr("F5"));
-	// goToCellAction->setStatusTip(tr("Go to cell"));
+	goToCellAction = new QAction(tr("&Go to Cell..."), this);
+	goToCellAction->setShortcut(tr("F5"));
+	goToCellAction->setStatusTip(tr("Go to cell"));
 	// connect(goToCellAction, SIGNAL(triggered()), spreadsheet, SLOT(goToCell()));
 
-	// recalculateAction = new QAction(tr("&Recalculate"), this);
-	// recalculateAction->setShortcut(tr("F9"));
-	// recalculateAction->setStatusTip(tr("Recalculate"));
-	// connect(recalculateAction, SIGNAL(triggered()), spreadsheet, SLOT(recalculate()));
+	recalculateAction = new QAction(tr("&Recalculate"), this);
+	recalculateAction->setShortcut(tr("F9"));
+	recalculateAction->setStatusTip(tr("Recalculate"));
+	connect(recalculateAction, SIGNAL(triggered()), spreadsheet, SLOT(recalculate()));
 
-	// sortAction = new QAction(tr("&Sort..."), this);
-	// sortAction->setStatusTip(tr("Sort"));
+	sortAction = new QAction(tr("&Sort..."), this);
+	sortAction->setStatusTip(tr("Sort"));
 	// connect(sortAction, SIGNAL(triggered()), spreadsheet, SLOT(sort()));
 
-	// showGridAction = new QAction(tr("&Show Grid"), this);
-	// showGridAction->setCheckable(true);
-	// showGridAction->setChecked(spreadsheet->showGrid());
-	// showGridAction->setStatusTip(tr("Show or hide the grid"));
-	// connect(showGridAction, SIGNAL(toggled(bool)), spreadsheet, SLOT(setShowGrid(bool)));
+	showGridAction = new QAction(tr("&Show Grid"), this);
+	showGridAction->setCheckable(true);
+	showGridAction->setChecked(spreadsheet->showGrid());
+	showGridAction->setStatusTip(tr("Show or hide the grid"));
+	connect(showGridAction, SIGNAL(toggled(bool)), spreadsheet, SLOT(setShowGrid(bool)));
 
 	autoRecalcAction = new QAction(tr("&Auto-recalculate"), this);
 	autoRecalcAction->setCheckable(true);
@@ -130,14 +130,18 @@ void MainWindow::createActions()
 	autoRecalcAction->setStatusTip(tr("Auto/Manual Recalculate"));
 	// connect(autoRecalcAction, SIGNAL(toggled(bool)), spreadsheet, SLOT(setAutoRecalc()));
 
-	// aboutQtAction = new QAction(tr("About &Qt"), this);
-	// aboutQtAction->setStatusTip(tr("Show Qt lib About box"));
-	// connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+	aboutAction = new QAction(tr("About"), this);
+	aboutAction->setStatusTip(tr("Shows info about the app"));
+	connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
-	// closeAction = new QAction(tr("&Close"), this);
-	// closeAction->setShortcut(tr("Ctrl+W"));
-	// closeAction->setStatusTip(tr("Close this window"));
-	// connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
+	aboutQtAction = new QAction(tr("About &Qt"), this);
+	aboutQtAction->setStatusTip(tr("Show Qt lib About box"));
+	connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+
+	closeAction = new QAction(tr("&Close"), this);
+	closeAction->setShortcut(tr("Ctrl+W"));
+	closeAction->setStatusTip(tr("Close this window"));
+	connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
 
 	exitAction = new QAction(tr("E&xit"), this);
 	exitAction->setShortcut(tr("Ctrl+Q"));
@@ -156,6 +160,7 @@ void MainWindow::createMenus()
 	for (int i = 0; i < MaxRecentFiles; ++i)
 		fileMenu->addAction(recentFileActions[i]);
 	fileMenu->addSeparator();
+	fileMenu->addAction(closeAction);
 	fileMenu->addAction(exitAction);
 
 	editMenu = menuBar()->addMenu(tr("&Edit"));
@@ -164,28 +169,28 @@ void MainWindow::createMenus()
 	editMenu->addAction(pasteAction);
 	editMenu->addAction(deleteAction);
 
-	// selectSubMenu = editMenu->addMenu(tr("&Select"));
-	// selectSubMenu->addAction(selectRowAction);
-	// selectSubMenu->addAction(selectColumnAction);
-	// selectSubMenu->addAction(selectAllAction);
+	selectSubMenu = editMenu->addMenu(tr("&Select"));
+	selectSubMenu->addAction(selectRowAction);
+	selectSubMenu->addAction(selectColumnAction);
+	selectSubMenu->addAction(selectAllAction);
 
-	// editMenu->addSeparator();
-	// editMenu->addAction(findAction);
-	// editMenu->addAction(goToCellAction);
+	editMenu->addSeparator();
+	editMenu->addAction(findAction);
+	editMenu->addAction(goToCellAction);
 
-	// toolsMenu = menuBar()->addMenu(tr("&Tools"));
-	// toolsMenu->addAction(recalculateAction);
-	// toolsMenu->addAction(sortAction);
+	toolsMenu = menuBar()->addMenu(tr("&Tools"));
+	toolsMenu->addAction(recalculateAction);
+	toolsMenu->addAction(sortAction);
 
-	// optionsMenu = menuBar()->addMenu(tr("&Options"));
-	// optionsMenu->addAction(showGridAction);
-	// optionsMenu->addAction(autoRecalcAction);
+	optionsMenu = menuBar()->addMenu(tr("&Options"));
+	optionsMenu->addAction(showGridAction);
+	optionsMenu->addAction(autoRecalcAction);
 
-	// menuBar()->addSeparator();
+	menuBar()->addSeparator();
 
-	// helpMenu = menuBar()->addMenu(tr("&Help"));
-	// helpMenu->addAction(aboutAction)
-	// helpMenu->addAction(aboutQtAction);
+	helpMenu = menuBar()->addMenu(tr("&Help"));
+	helpMenu->addAction(aboutAction);
+	helpMenu->addAction(aboutQtAction);
 }
 
 void MainWindow::createContextMenu()
@@ -207,9 +212,9 @@ void MainWindow::createToolBars()
 	editToolBar->addAction(cutAction);
 	editToolBar->addAction(copyAction);
 	editToolBar->addAction(pasteAction);
-	// editToolBar->addSeparator();
-	// editToolBar->addAction(findAction);
-	// editToolBar->addAction(goToCellAction);
+	editToolBar->addSeparator();
+	editToolBar->addAction(findAction);
+	editToolBar->addAction(goToCellAction);
 }
 
 void MainWindow::createStatusBar()
@@ -243,12 +248,12 @@ void MainWindow::spreadsheetModified()
 
 void MainWindow::newFile()
 {
-	// MainWindow *mainWin = new MainWindow;
-	// mainWin->show();
-	if (okToContinue()){
-		spreadsheet->clear();
-		setCurrentFile("");
-	}
+	MainWindow *mainWin = new MainWindow;
+	mainWin->show();
+	// if (okToContinue()){
+	// 	spreadsheet->clear();
+	// 	setCurrentFile("");
+	// }
 }
 
 bool MainWindow::okToContinue()
@@ -453,8 +458,8 @@ void MainWindow::readSettings()
 	recentFiles = settings.value("recentFiles").toStringList();
 	updateRecentFileActions();
 
-	// bool showGrid = settings.value("showGrid", true).toBool();
-	// showGridAction->setChecked(showGrid);
+	bool showGrid = settings.value("showGrid", true).toBool();
+	showGridAction->setChecked(showGrid);
 
 	bool autoRecalc = settings.value("autoRecalc", true).toBool();
 	autoRecalcAction->setChecked(autoRecalc);
